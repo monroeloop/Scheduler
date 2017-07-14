@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<article>
+    <form class="registerliststyle" method="post">
+        {% csrf_token %}
+        <ul class="registerblock">Enter Your Username:
+            <div>{{ form.username }}</div>
+        </ul>
+        <ul class="registerblock">Enter Your Password:
+            <div>{{ form.password1 }}</div>
+        </ul>
+        <br><br><button class="registerbutton" type="submit">Login</button>
+    </form>
+</article>
+
+{% endblock %}

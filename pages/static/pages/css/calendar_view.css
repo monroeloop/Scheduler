@@ -1,0 +1,47 @@
+.blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.dayrow {
+    list-style-type: none;
+    flex-direction: row;
+    height: 25px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.rowone {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.rowone:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+

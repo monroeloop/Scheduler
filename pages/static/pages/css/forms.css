@@ -1,0 +1,21 @@
+.registerliststyle {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #43526c;
+    width: 880px;
+}
+
+.registerblock {
+    margin: 10px;
+    color: whitesmoke;
+}
+
+.registerbutton {
+    background-color: #8797af;
+    border: none;
+    border-radius: 2px;
+    font-size: 20px;
+    color: whitesmoke;
+}

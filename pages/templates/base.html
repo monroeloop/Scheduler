@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/css/calendar_view.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/css/forms.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {% block css %}
+    {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'pages/jquery/stylesheet.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {% block jquery %}
+    {% endblock %}
+</head>
+<body class="mainback">
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<header class="menubar">
+    <div class="navbar">
+        <button type="button" class="menubutton">
+            <span class="bar" id="bar1"></span>
+            <span class="bar" id="bar2"></span>
+            <span class="bar" id="bar3"></span>
+        </button>
+        <nav>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'main' %}">
+                    <div class="panel" id="panel3">LOGOUT</div>
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <div class="panel" id="panel1">LOGIN</div>
+                </a>
+                <a href="{% url 'register' %}">
+                    <div class="panel" id="panel2">SIGN UP</div>
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

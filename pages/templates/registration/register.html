@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<body>
+    <form class="registerliststyle" action="" method="Post">
+        {% csrf_token %} {#cross site request forgery#}
+        <ul class="registerblock">Enter a Username:
+            <div>{{ form.username }}
+            </div>
+        </ul>
+        <ul class="registerblock">Enter an Email:
+            <div>{{ form.email }}
+            </div>
+        </ul>
+        <ul class="registerblock">Enter a Password:
+            <div>{{ form.password1 }}
+            </div>
+        </ul>
+        <ul class="registerblock">Confirm the Password:
+            <div>{{ form.password2 }}</div>
+        </ul>
+{#        <ul>#}
+{#            {% csrf_token %}#}
+{#            {{ form.as_ul }}#}
+{#        </ul>#}
+        <br><button class="registerbutton">Register</button>
+    </form>
+</body>
+
+{% endblock %}

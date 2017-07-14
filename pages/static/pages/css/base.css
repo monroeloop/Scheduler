@@ -1,0 +1,69 @@
+header {
+    display: flex;
+    justify-content: flex-end;
+    width: 850px;
+    height: 38px;
+    background: #43526c;
+    padding: 15px;
+}
+
+.maingreet {
+    text-align: center;
+    color: #bf402a;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.menubutton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    /*float: right;*/
+}
+
+.bar {
+    display: flex;
+    width: 40px;
+    height: 3px;
+    margin: 6px;
+    border-radius: 1px;
+    background-color: whitesmoke;
+}
+
+nav {
+    top: 15px;
+    right: -15px;
+    position: absolute;
+}
+
+a {
+    text-decoration: none;
+}
+
+.panel {
+    display: none;
+    width: 100px;
+    height: auto;
+    background: #8797af;
+    border: transparent;
+    border-radius: 5px;
+    margin: 2px;
+    cursor: pointer;
+    color: whitesmoke;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    width: 850px;
+    align-content: center;
+}
+
+.mainback {
+    width: 850px;
+    background: #c5baaf;
+}
