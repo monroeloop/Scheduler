@@ -8,12 +8,18 @@
     <form class="registerliststyle" method="post">
         {% csrf_token %}
         <ul class="registerblock">Enter Your Username:
-            <div>{{ form.username }}</div>
+            <div>{{ form.username }}
+            </div>
         </ul>
         <ul class="registerblock">Enter Your Password:
-            <div>{{ form.password1 }}</div>
+            <div>{{ form.password }}
+            </div>
         </ul>
-        <br><br><button class="registerbutton" type="submit">Login</button>
+        <div>
+            <br>
+            <br>
+            <button class="registerbutton" type="submit">Login</button>
+        </div>
     </form>
 </article>
 

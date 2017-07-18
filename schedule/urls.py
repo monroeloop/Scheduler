@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^pages/calendar_view/', page_views.calendar_view, name='calendar_view'),
     url(r'^$', page_views.main, name='main'),
     url(r'^accounts/login/$', login, name='login'),
+    url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^accounts/register/$', register, name='register'), # ^ means nothing can come before, while $ acts the same way as ^ except on the opposite end
 ]

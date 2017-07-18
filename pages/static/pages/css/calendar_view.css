@@ -1,8 +1,15 @@
-.blocks {
+table.month {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    margin: 15px;
 }
+
+/*.tr > th {*/
+    /*display: flex;*/
+    /*padding: 10px;*/
+    /*margin: 10px;*/
+/*}*/
 
 .dayrow {
     list-style-type: none;
@@ -14,14 +21,15 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 2px solid;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
     color: #bf402a;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
 }
 
-.rowone {
+.mon {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
@@ -31,17 +39,188 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 2px solid;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
 }
 
-.rowone:hover {
+.mon:hover {
     background: #bf402a;
     border: 2px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
+}
+
+.tue {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tue:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+.wed {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.wed:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+.thu {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.thu:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+.fri {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.fri:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+.sat {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sat:hover {
+    background: #bf402a;
+    border: 2px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+.sun {
+    list-style-type: none;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sun:hover {
+    background: #bf402a;
+    border: 1px solid #bf402a;
+    color: whitesmoke;
+    transition-duration: 1.0s;
+}
+
+#dialog {
+    background: #c5baaf;
+    width: 650px;
+}
+
+.rowtwo {
+    width: 450px;
+    height: 25px;
+    list-style-type: none;
+    flex-direction: row;
+    margin: 2px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    color: #bf402a;
+    text-align: center;
+    cursor: pointer;
+}
+
+.rowtwo:hover {
+    background-color: royalblue;
 }
 
 

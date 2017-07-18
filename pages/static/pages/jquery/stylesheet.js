@@ -16,17 +16,23 @@ $(document).ready(function () {
 $(document).ready(function() {
     $( "#dialog" ).dialog({
       autoOpen: false,
+      maxWidth:800,
+      maxHeight: 2000,
+      width: 500,
+      height: 700,
+      resizable: true,
       show: {
         effect: "blind",
-        duration: 1000
+        duration: 800
       },
       hide: {
         effect: "fade",
-        duration: 1000
+        duration: 800
       }
     });
 
-    $( ".rowone" ).on( "click", function() {
+    $( "td[class=mon], td[class=tue], td[class=wed]," +
+        "td[class=thu], td[class=fri], td[class=sat], td[class=sun]" ).on( "click", function() {
       $( "#dialog" ).dialog( "open" );
     });
   });
