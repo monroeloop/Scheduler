@@ -36,3 +36,7 @@ $(document).ready(function() {
       $( "#dialog" ).dialog( "open" );
     });
   });
+
+$( function() {
+    $( "#dialogback" ).selectable();
+  } );

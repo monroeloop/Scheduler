@@ -8,8 +8,9 @@
 <div id="dialog" title="This is a Test Box">
     <div id="dialogback">
         <p>Woohoo!  This worked!!</p>
-        <li class="rowtwo">8:00</li>
-        <li class="rowtwo">8:15</li>
+        {% for t in times %}
+            <div id="rowtwo" class="rowtwo">{{ t }}</div>
+        {% endfor %}
     </div>
 </div>
 </body>

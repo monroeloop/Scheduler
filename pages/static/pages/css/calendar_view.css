@@ -3,6 +3,7 @@ table.month {
     flex-wrap: wrap;
     justify-content: center;
     margin: 15px;
+    /*position: absolute;*/
 }
 
 /*.tr > th {*/
@@ -33,7 +34,7 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
+    width: 125px;
     margin: 2px;
     background: transparent;
     -webkit-border-radius: 5px;
@@ -57,8 +58,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -81,8 +83,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -105,8 +108,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -129,8 +133,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -153,8 +158,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -177,8 +183,9 @@ table.month {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
-    width: 100px;
-    margin: 2px;
+    width: 125px;
+    margin: 10px;
+    /*position: absolute;*/
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -198,7 +205,7 @@ table.month {
 }
 
 #dialog {
-    background: #c5baaf;
+    background: whitesmoke;
     width: 650px;
 }
 
@@ -212,15 +219,13 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
+    /*border-right: 2px solid;*/
     border-bottom: 2px solid;
     color: #bf402a;
-    text-align: center;
+    text-align: left;
     cursor: pointer;
 }
 
-.rowtwo:hover {
-    background-color: royalblue;
-}
+
 
 

@@ -1,5 +1,5 @@
 import datetime
-from calendar import HTMLCalendar
+from calendar import *
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -13,9 +13,19 @@ from .models import Appointments
 # Create your views here.
 
 def calendar_view(request):
-    days = range(35)
-    calendar = HTMLCalendar().formatmonth(2017, 7)
-    return render(request, 'pages/calendar_view.html', {"days": days, "calendar": calendar})
+    # timeslots = range(32)
+    then = datetime.datetime(2000, 1, 1, 9, 00)
+    end = then+datetime.timedelta(hours=6)
+    l = []
+    while then <= end:
+        l.append(then)
+        then += datetime.timedelta(minutes=15)
+    times = [t.strftime("%I:%M %p") for t in l]
+
+    now = datetime.datetime.now()
+    calendar = HTMLCalendar().formatmonth(now.year, now.month)
+    # calendar = SchedulingCalendar
+    return render(request, 'pages/calendar_view.html', {"times": times, "calendar": calendar})
 
 def main(request):
     return render(request, 'pages/main.html', {})
@@ -31,21 +41,26 @@ class SchedulingCalendar(HTMLCalendar):
         id = ''
         appointments = []
         if day !=0:
-            pass
+            appointments = Appointments.objects.filter(date = datetime.date(theyear, themonth, day))
+
+            if self.today == datetime.date(theyear, themonth, day):
+                id = 'Today'
+            else:
+                id = 'dt_{}'.format(day)
 
         if day == 0:
             return '<div class="noday">&nbsp;</div>'  # day outside month
         elif len(appointments) > 0:
-            html = '<div id="{id}" class="{cls}day" data-day="{day}" data-month="{month}" data-year="{year}">' \
+            html = '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}">' \
                    '<div class="dayHolder">{day}</div>'.format(id=id, day=day, month=themonth, year=theyear)
             for i in appointments:
-                html += '<div class="task item"><a href="{}"></a></div>'.format(i.link, i.title)
+                html += '<div class="task item"><a href="{}"></a></div>'.format(i.title)
             html += '</div>'
             return html
         else:
-            return '<div id="{id}" class="{cls}" data-day="{day}" data-month="{month}" data-year="{year}"><div class="dayHolder">{day}</div></div>'.format(
+            return '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}"><div class="dayHolder">{day}</div></div>'.format(
 
-                id=id, cls=holiday, day=day, month=themonth, year=theyear)
+                id=id, day=day, month=themonth, year=theyear)
 
 
         def formatweek(self, theweek, theyear, themonth):
@@ -82,7 +97,7 @@ class SchedulingCalendar(HTMLCalendar):
             """
 
             if withyear:
-                s = '%s %s' % (month_name[themonth], theyear)
+                s = '{} {}'.format(month_name[themonth], theyear)
 
             else:
                 s = '%s' % month_name[themonth]

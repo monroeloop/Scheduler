@@ -13,7 +13,7 @@ from django.db import models
 # class Account(m)
 
 class Appointments(models.Model):
-    date = models.DateTimeField()
+    # date = models.DateTimeField()
     title = models.CharField(max_length=10)
     note = models.TextField(blank=True, null=True)
     slug = models.SlugField()
