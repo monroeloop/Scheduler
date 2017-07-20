@@ -30,7 +30,7 @@ table.month {
     cursor: pointer;
 }
 
-.mon {
+.mon, .wed {
     list-style-type: none;
     flex-direction: row;
     height: 100px;
@@ -40,8 +40,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -49,7 +48,7 @@ table.month {
 
 .mon:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -65,8 +64,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -74,7 +72,7 @@ table.month {
 
 .tue:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -90,8 +88,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -99,7 +96,7 @@ table.month {
 
 .wed:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -115,8 +112,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -124,7 +120,7 @@ table.month {
 
 .thu:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -140,8 +136,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -149,7 +144,7 @@ table.month {
 
 .fri:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -165,8 +160,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -174,7 +168,7 @@ table.month {
 
 .sat:hover {
     background: #bf402a;
-    border: 2px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
@@ -190,8 +184,7 @@ table.month {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border: .5px solid;
     color: #bf402a;
     text-align: center;
     cursor: pointer;
@@ -199,30 +192,52 @@ table.month {
 
 .sun:hover {
     background: #bf402a;
-    border: 1px solid #bf402a;
+    border: .5px solid #bf402a;
     color: whitesmoke;
     transition-duration: 1.0s;
 }
 
-#dialog {
+.dialog {
     background: whitesmoke;
     width: 650px;
 }
 
-.rowtwo {
-    width: 450px;
-    height: 25px;
-    list-style-type: none;
+#dialogback {
+    display: flex;
     flex-direction: row;
-    margin: 2px;
+    align-items: flex-start;
+}
+
+.rowtwo {
+    width: 100px;
+    height: 106px;
+    list-style-type: none;
+    /*flex-direction: column;*/
+    margin: 0px;
     background: transparent;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 1px;
     /*border-right: 2px solid;*/
-    border-bottom: 2px solid;
+    border: 1px solid;
     color: #bf402a;
     text-align: left;
+}
+
+.rowthree {
+    width: 350px;
+    height: 25px;
+    list-style-type: none;
+    /*flex-direction: column;*/
+    margin: 0px;
+    background: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 1px;
+    /*border-right: 2px solid;*/
+    border: 1px solid;
+    color: #bf402a;
+    float: left;
     cursor: pointer;
 }
 

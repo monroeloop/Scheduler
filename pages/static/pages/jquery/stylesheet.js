@@ -21,6 +21,7 @@ $(document).ready(function() {
       width: 500,
       height: 700,
       resizable: true,
+      stack: true,
       show: {
         effect: "blind",
         duration: 800
@@ -38,5 +39,32 @@ $(document).ready(function() {
   });
 
 $( function() {
-    $( "#dialogback" ).selectable();
+    $( "#columnthree" ).selectable({
+        selected: function( event, ui ) {
+            console.log($(ui.selected).data('time'))
+        }});
+
   } );
+//
+// $("#dialog").ready(function() {
+//     $( "#rowthree" ).dialog({
+//       autoOpen: false,
+//       maxWidth: 1000,
+//       maxHeight: 1000,
+//       width: 500,
+//       height: 250,
+//       resizable: true,
+//       show: {
+//         effect: "blind",
+//         duration: 800
+//       },
+//       hide: {
+//         effect: "fade",
+//         duration: 800
+//       }
+//     });
+//
+//     $( ".ui-selected" ).on( "click", function() {
+//       $( "#columnthree" ).dialog( "open" );
+//     });
+//   });

@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<body>
-<div class="wholecalendar">
-{{ calendar|safe }}
-</div>
-<div id="dialog" title="This is a Test Box">
-    <div id="dialogback">
-        <p>Woohoo!  This worked!!</p>
-        {% for t in times %}
-            <div id="rowtwo" class="rowtwo">{{ t }}</div>
-        {% endfor %}
+    <body>
+    <div class="wholecalendar">
+        {{ calendar|safe }}
     </div>
-</div>
-</body>
+    <div class="dialog" id="dialog" title="Schedule an Appointment">
+        <div id="dialogback">
+            <div>
+                {% for t in times %}
+                    <div id="rowtwo" class="rowtwo">{{ t }}</div>
+                {% endfor %}
+            </div>
+            <div id="columnthree">
+                {% for hr in h %}
+                    {% for min in m %}
+                        <div id="rowthree" class="rowthree" data-time="{{ hr }}{{ min }}" title="Enter an Appointment"></div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </body>
 {% endblock %}
+
+{#id="dialogtwo" title="Enter Appointment Information"#}
+
+{#how to click on a jquery ui selectable#}

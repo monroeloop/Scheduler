@@ -13,19 +13,25 @@ from .models import Appointments
 # Create your views here.
 
 def calendar_view(request):
-    # timeslots = range(32)
+    timeslots = range(29)
+    minutes = ["00", "15", "30", "45"]
+    hours = ["9", "10", "11", "12", "1", "2", "3"]
+    for h in hours:
+        for m in minutes:
+            print('{}{}'.format(h,m))
+
     then = datetime.datetime(2000, 1, 1, 9, 00)
     end = then+datetime.timedelta(hours=6)
     l = []
     while then <= end:
         l.append(then)
-        then += datetime.timedelta(minutes=15)
-    times = [t.strftime("%I:%M %p") for t in l]
+        then += datetime.timedelta(minutes=60)
+    times = [t.strftime("%I %p") for t in l]
 
     now = datetime.datetime.now()
     calendar = HTMLCalendar().formatmonth(now.year, now.month)
     # calendar = SchedulingCalendar
-    return render(request, 'pages/calendar_view.html', {"times": times, "calendar": calendar})
+    return render(request, 'pages/calendar_view.html', {"h": hours, "m": minutes, "timeslots": timeslots, "times": times, "calendar": calendar})
 
 def main(request):
     return render(request, 'pages/main.html', {})
