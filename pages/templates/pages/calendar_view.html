@@ -6,21 +6,32 @@
         {{ calendar|safe }}
     </div>
     <div class="dialog" id="dialog" title="Schedule an Appointment">
-        <div id="dialogback">
+        <div id="dialogtwo">
             <div>
                 {% for t in times %}
                     <div id="rowtwo" class="rowtwo">{{ t }}</div>
                 {% endfor %}
             </div>
-            <div id="columnthree">
+            <div id="columnthree" title="Select a Time">
                 {% for hr in h %}
                     {% for min in m %}
-                        <div id="rowthree" class="rowthree" data-time="{{ hr }}{{ min }}" title="Enter an Appointment"></div>
+                        <div id="rowthree" class="rowthree" data-time="{{ hr }}{{ min }}" title="Select Times"></div>
                     {% endfor %}
                 {% endfor %}
             </div>
         </div>
+
+        <div id="childDialog" title="It Worked!">
+            <p>Maybe this will work.</p>
+        </div>
+
     </div>
+
+{#    <div id="dialogtwo" title="Select a Time">#}
+{#        <div id="columnthree">#}
+{#            #}
+{#        </div>#}
+{#    </div>#}
     </body>
 {% endblock %}
 
