@@ -12,11 +12,11 @@ from django.db import models
 
 # class Account(m)
 
-class Appointments(models.Model):
+class Appointment(models.Model):
     # date = models.DateTimeField()
     title = models.CharField(max_length=10)
     note = models.TextField(blank=True, null=True)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
 

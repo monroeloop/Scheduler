@@ -13,6 +13,16 @@
     color: whitesmoke;
 }
 
+.registerliststyletwo {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #43526c;
+    width: 500px;
+    height: 500px;
+}
+
 .registerbutton {
     background-color: #8797af;
     border: none;

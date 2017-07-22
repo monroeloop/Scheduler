@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
     <body>
+    <span style="display: none" id="yearHidden">{{ year }}</span>
+    <span style="display: none" id="monthHidden">{{ month|date:'m' }}</span>
     <div class="wholecalendar">
         {{ calendar|safe }}
     </div>
@@ -15,23 +17,46 @@
             <div id="columnthree" title="Select a Time">
                 {% for hr in h %}
                     {% for min in m %}
-                        <div id="rowthree" class="rowthree" data-time="{{ hr }}{{ min }}" title="Select Times"></div>
+                        <div id="rowthree" class="rowthree" data-time="{{ hr }}:{{ min }}" title="Select Times"></div>
                     {% endfor %}
                 {% endfor %}
             </div>
         </div>
 
-        <div id="childDialog" title="It Worked!">
-            <p>Maybe this will work.</p>
+        <div id="childDialog" title="New Appointment">
+            <form class="registerliststyletwo" method="post">
+                {% csrf_token %}
+                <ul class="registerblock">Start Time:
+                    <div><input type="text" name="start">
+                    </div>
+                </ul>
+                <ul class="registerblock">End Time:
+                    <div><input type="text" name="end">
+                    </div>
+                </ul>
+                <ul class="registerblock">RCSP Case Number:
+                    <div><input type="text" name="title">
+                    </div>
+                </ul>
+                <ul class="registerblock">Additional Comments:
+                    <div><input type="text" name="note">
+                    </div>
+                </ul>
+                <div>
+                    <br>
+                    <br>
+                    <button class="registerbutton" type="submit">Save</button>
+                </div>
+            </form>
         </div>
 
     </div>
 
-{#    <div id="dialogtwo" title="Select a Time">#}
-{#        <div id="columnthree">#}
-{#            #}
-{#        </div>#}
-{#    </div>#}
+    {#    <div id="dialogtwo" title="Select a Time">#}
+    {#        <div id="columnthree">#}
+    {#            #}
+    {#        </div>#}
+    {#    </div>#}
     </body>
 {% endblock %}
 

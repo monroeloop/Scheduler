@@ -42,17 +42,19 @@ $(document).ready(function () {
 
     $("#columnthree").selectable({
         selected: function (event, ui) {
-            console.log($(ui.selected).data('time'));
+            // console.log($(ui.selected).data('time'));
         }
     });
 
-    function createChildDialog() {
+    function createChildDialog(starttime, endtime) {
+        console.log(starttime)
+        console.log(endtime)
         $('#childDialog').dialog({
             autoOpen: false,
-            maxWidth: 500,
+            maxWidth: 700,
             maxHeight: 600,
             height: 500,
-            width: 400,
+            width: 550,
             resizable: true,
             modal: false
         });
@@ -61,7 +63,7 @@ $(document).ready(function () {
     // $(".rowthree").on("click", function () {
     //     $("#childDialog").dialog("open");
     // });
-
+    var day;
     function createParentDialog() {
 
         $('#dialog').dialog({
@@ -80,21 +82,42 @@ $(document).ready(function () {
                 effect: "fade",
                 duration: 800
             },
-                buttons: {
-                    "Close": function () {
-                        $(this).dialog("close");
-                    },
-                    "Select Times": function () {
-                        createChildDialog();
-                        $("#childDialog").dialog("open");
+            buttons: {
+                "Close": function () {
+                    $(this).dialog("close");
+                },
+                "Select Times": function () {
+                    var selectedlist = $(".ui-selected");
+                    var starttime = $(selectedlist[0]).data("time").split(':');
+                    if (day.toString().length < 2) {
+                        day = '0' + day
                     }
+                    console.log($('#yearHidden').text())
+                    console.log($('#monthHidden').text())
+                    // console.log(day)
+                    var starttime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, starttime[0], starttime[1])
+                    //
+                    // console.log(date);
+                    // var endtime = parseInt($(selectedlist[selectedlist.length - 1]).data("time")) + 15
+                    // var checkendtime = endtime.toString().split("");
+                    // if (checkendtime.slice(2,3)[0]==="6"){
+                    //     checkendtime[0] = parseInt(checkendtime[0]) + 1
+                    //     checkendtime[2] = "0"
+                    // }
+                    // endtime = parseInt(checkendtime.join(""));
+                    //
+                    // createChildDialog(starttime,endtime);
+                    $("#childDialog").dialog("open");
+                    // console.log($(".ui-selected"))
                 }
-            });
+            }
+        });
 
-            var weekdays = "td[class=mon], td[class=tue], td[class=wed], td[class=thu], td[class=fri], td[class=sat], td[class=sun]";
-            $(weekdays).on("click", function () {
-                $("#dialog").dialog("open");
-            });
+        var weekdays = "td[class=mon], td[class=tue], td[class=wed], td[class=thu], td[class=fri], td[class=sat], td[class=sun]";
+        $(weekdays).on("click", function () {
+            day = $(this).text()
+            $("#dialog").dialog("open");
+        });
     }
 
 
