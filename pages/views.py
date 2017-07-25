@@ -1,9 +1,10 @@
 import datetime
 from calendar import *
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import date
+
 
 from .models import Appointment
 
@@ -28,16 +29,42 @@ def calendar_view(request):
         then += datetime.timedelta(minutes=60)
     times = [t.strftime("%I %p") for t in l]
 
+    events = []
+
     now = datetime.datetime.now()
     calendar = HTMLCalendar().formatmonth(now.year, now.month)
-    # calendar = SchedulingCalendar
-    return render(request, 'pages/calendar_view.html', {"year": datetime.datetime.today().year, "month": datetime.datetime.today(), "h": hours, "m": minutes, "timeslots": timeslots, "times": times, "calendar": calendar})
+
+    def get_week(self, date):
+
+        """Return the full week (Sunday first) of the week containing the given date.
+        # 'date' may be a datetime or date instance (the same type is returned)."""
+
+        # one_day = datetime.timedelta(days=1)
+        # day_idx = (date.weekday()) % 7  # turn sunday into 0, monday into 1, etc.
+        # sunday = date - datetime.timedelta(days=day_idx)
+        # date = sunday
+        #
+        # for n in range(7):
+        #     yield date
+        #     date += one_day
+
+    return render(request, 'pages/calendar_view.html',
+                  {"year": datetime.datetime.today().year, "month": datetime.datetime.today(), "h": hours, "m": minutes,
+                   "timeslots": timeslots, "times": times, "calendar": calendar})
+
+
+
+
+
+
 
 def main(request):
     return render(request, 'pages/main.html', {})
 
 def submitappt(request):
     if request.method == "POST":
+        for k, v in request.POST.items():
+            print("key: {}, value: {}".format(k, v))
 
         appointments = Appointment()
         appointments.start = request.POST.get('start')
@@ -45,6 +72,22 @@ def submitappt(request):
         appointments.title = request.POST.get('title')
         appointments.note = request.POST.get('note')
         appointments.save()
+
+        start_conflict = Appointment.objects.filter(
+            start_time__range=(appointments.start_time,
+                               appointments.end_time))
+        end_conflict = Appointment.objects.filter(
+            end_time__range=(appointments.start_time,
+                             appointments.end_time))
+
+        during_conflict = Appointment.objects.filter(
+            start_date__lte=appointments.start_time,
+            end_date__gte=appointments.end_time)
+
+        if (start_conflict or end_conflict or during_conflict):
+            pass
+
+        return HttpResponseRedirect("/pages/calendar_view/")
 
 class SchedulingCalendar(HTMLCalendar):
     def __init__(self):

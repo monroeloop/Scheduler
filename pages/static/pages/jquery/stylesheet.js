@@ -47,8 +47,23 @@ $(document).ready(function () {
     });
 
     function createChildDialog(starttime, endtime) {
+        var start = new Date(starttime);
+        var startday = ("0" + start.getDay()).slice(-2);
+        var startmonth = ("0" + (start.getMonth() + 1)).slice(-2);
+        var starthour = ("0" + start.getHours()).slice(-2);
+        var startminute = ("0" + start.getMinutes()).slice(-2);
+        var end = new Date(endtime);
+        var endday = ("0" + end.getDay()).slice(-2);
+        var endmonth = ("0" + (end.getMonth() + 1)).slice(-2);
+        var endhour = ("0" + end.getHours()).slice(-2)
+        var endminute = ("0" + end.getMinutes()).slice(-2);
+
+        starttime = start.getFullYear() + "-" + (startmonth) + "-" + (startday) + "T" + starthour + ":" + startminute;
+        endtime = end.getFullYear() + "-" + (endmonth) + "-" + (endday) + "T" + endhour + ":" + endminute;
         console.log(starttime)
         console.log(endtime)
+        $('#starttime').val(starttime);
+        $('#endtime').val(endtime);
         $('#childDialog').dialog({
             autoOpen: false,
             maxWidth: 700,
@@ -64,6 +79,7 @@ $(document).ready(function () {
     //     $("#childDialog").dialog("open");
     // });
     var day;
+
     function createParentDialog() {
 
         $('#dialog').dialog({
@@ -89,24 +105,17 @@ $(document).ready(function () {
                 "Select Times": function () {
                     var selectedlist = $(".ui-selected");
                     var starttime = $(selectedlist[0]).data("time").split(':');
+                    var endtime = $(selectedlist[selectedlist.length - 1]).data("time").split(':')
                     if (day.toString().length < 2) {
                         day = '0' + day
                     }
-                    console.log($('#yearHidden').text())
-                    console.log($('#monthHidden').text())
-                    // console.log(day)
-                    var starttime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, starttime[0], starttime[1])
-                    //
-                    // console.log(date);
-                    // var endtime = parseInt($(selectedlist[selectedlist.length - 1]).data("time")) + 15
-                    // var checkendtime = endtime.toString().split("");
-                    // if (checkendtime.slice(2,3)[0]==="6"){
-                    //     checkendtime[0] = parseInt(checkendtime[0]) + 1
-                    //     checkendtime[2] = "0"
-                    // }
-                    // endtime = parseInt(checkendtime.join(""));
-                    //
-                    // createChildDialog(starttime,endtime);
+
+                    endtime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, endtime[0], endtime[1]);
+                    endtime.setMinutes(endtime.getMinutes() + 15)
+
+                    starttime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, starttime[0], starttime[1]);
+
+                    createChildDialog(starttime, endtime);
                     $("#childDialog").dialog("open");
                     // console.log($(".ui-selected"))
                 }

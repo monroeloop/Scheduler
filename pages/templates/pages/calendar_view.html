@@ -24,14 +24,14 @@
         </div>
 
         <div id="childDialog" title="New Appointment">
-            <form class="registerliststyletwo" method="post">
+            <form class="registerliststyletwo" method="post" action="/accounts/appointment_submit/">
                 {% csrf_token %}
                 <ul class="registerblock">Start Time:
-                    <div><input type="text" name="start">
+                    <div><input id="starttime" type="datetime-local" name="start">
                     </div>
                 </ul>
                 <ul class="registerblock">End Time:
-                    <div><input type="text" name="end">
+                    <div><input id="endtime" type="datetime-local" name="end">
                     </div>
                 </ul>
                 <ul class="registerblock">RCSP Case Number:
