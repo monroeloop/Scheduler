@@ -23,11 +23,14 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from accounts.views import register, login, logout
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^pages/calendar_view/', page_views.calendar_view, name='calendar_view'),
     url(r'^$', page_views.main, name='main'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
+    url(r'^month/(?P<month>[-\d]{2})/(?P<year>[-\d]{4})$', page_views.month_view, name='month_view'),
+    url(r'^accounts/appointment_submit/$', page_views.submitappt, name='appointment_submit'),
     url(r'^accounts/register/$', register, name='register'), # ^ means nothing can come before, while $ acts the same way as ^ except on the opposite end
 ]
