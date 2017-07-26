@@ -48,14 +48,14 @@ $(document).ready(function () {
 
     function createChildDialog(starttime, endtime) {
         var start = new Date(starttime);
-        var startday = ("0" + start.getDay()).slice(-2);
+        var startday = ("0" + start.getDate()).slice(-2);
         var startmonth = ("0" + (start.getMonth() + 1)).slice(-2);
         var starthour = ("0" + start.getHours()).slice(-2);
         var startminute = ("0" + start.getMinutes()).slice(-2);
         var end = new Date(endtime);
-        var endday = ("0" + end.getDay()).slice(-2);
+        var endday = ("0" + end.getDate()).slice(-2);
         var endmonth = ("0" + (end.getMonth() + 1)).slice(-2);
-        var endhour = ("0" + end.getHours()).slice(-2)
+        var endhour = ("0" + end.getHours()).slice(-2);
         var endminute = ("0" + end.getMinutes()).slice(-2);
 
         starttime = start.getFullYear() + "-" + (startmonth) + "-" + (startday) + "T" + starthour + ":" + startminute;

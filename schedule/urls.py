@@ -26,6 +26,7 @@ from accounts.views import register, login, logout
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^pages/calendar_view/', page_views.calendar_view, name='calendar_view'),
+    url(r'^pages/appt_sub/', page_views.submitappt, name='appt_sub'),
     url(r'^$', page_views.main, name='main'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),

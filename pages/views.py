@@ -5,10 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import date
 
-
 from .models import Appointment
-
-
 
 
 # Create your views here.
@@ -17,12 +14,12 @@ def calendar_view(request):
     timeslots = range(29)
     minutes = ["00", "15", "30", "45"]
     hours = ["9", "10", "11", "12", "1", "2", "3"]
-    for h in hours:
-        for m in minutes:
-            print('{}{}'.format(h,m))
+    # for h in hours:
+    #     for m in minutes:
+    #         print('{}{}'.format(h, m))
 
     then = datetime.datetime(2000, 1, 1, 9, 00)
-    end = then+datetime.timedelta(hours=6)
+    end = then + datetime.timedelta(hours=6)
     l = []
     while then <= end:
         l.append(then)
@@ -53,13 +50,9 @@ def calendar_view(request):
                    "timeslots": timeslots, "times": times, "calendar": calendar})
 
 
-
-
-
-
-
 def main(request):
     return render(request, 'pages/main.html', {})
+
 
 def submitappt(request):
     if request.method == "POST":
@@ -72,22 +65,23 @@ def submitappt(request):
         appointments.title = request.POST.get('title')
         appointments.note = request.POST.get('note')
         appointments.save()
-
-        start_conflict = Appointment.objects.filter(
-            start_time__range=(appointments.start_time,
-                               appointments.end_time))
-        end_conflict = Appointment.objects.filter(
-            end_time__range=(appointments.start_time,
-                             appointments.end_time))
-
-        during_conflict = Appointment.objects.filter(
-            start_date__lte=appointments.start_time,
-            end_date__gte=appointments.end_time)
-
-        if (start_conflict or end_conflict or during_conflict):
-            pass
+        #
+        # start_conflict = Appointment.objects.filter(
+        #     start_time__range=(appointments.start_time,
+        #                        appointments.end_time))
+        # end_conflict = Appointment.objects.filter(
+        #     end_time__range=(appointments.start_time,
+        #                      appointments.end_time))
+        #
+        # during_conflict = Appointment.objects.filter(
+        #     start_date__lte=appointments.start_time,
+        #     end_date__gte=appointments.end_time)
+        #
+        # if (start_conflict or end_conflict or during_conflict):
+        #     pass
 
         return HttpResponseRedirect("/pages/calendar_view/")
+
 
 class SchedulingCalendar(HTMLCalendar):
     def __init__(self):
@@ -96,175 +90,175 @@ class SchedulingCalendar(HTMLCalendar):
 
 
 
- #    def formatday(self, day, weekday, theyear, themonth):
- #        """
- #        Return a day as a table cell.
- #        """
- #        id = ''
- #        appointments = []
- #        if day !=0:
- #            appointments = Appointments.objects.filter(date = datetime.date(theyear, themonth, day))
- #
- #            if self.today == datetime.date(theyear, themonth, day):
- #                id = 'Today'
- #            else:
- #                id = 'dt_{}'.format(day)
- #
- #        if day == 0:
- #            return '<div class="noday">&nbsp;</div>'  # day outside month
- #        elif len(appointments) > 0:
- #            html = '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}">' \
- #                   '<div class="dayHolder">{day}</div>'.format(id=id, day=day, month=themonth, year=theyear)
- #            for i in appointments:
- #                html += '<div class="task item"><a href="{}"></a></div>'.format(i.title)
- #            html += '</div>'
- #            return html
- #        else:
- #            return '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}"><div class="dayHolder">{day}</div></div>'.format(
- #
- #                id=id, day=day, month=themonth, year=theyear)
- #
- #
- #        def formatweek(self, theweek, theyear, themonth):
- #
- #            """
- #            Return a complete week as a table row.
- #            """
- #
- #            s = ''.join(self.formatday(d, wd, theyear, themonth) for (d, wd) in theweek)
- #            return '<div class="week">%s</div>' % s
- #
- #        def formatweekday(self, day):
- #
- #            """
- #            Return a weekday name as a table header.
- #            """
- #
- #            return '<div class="%s day">%s</div>' % (self.cssclasses[day], day_abbr[day])
- #
- #        def formatweekheader(self):
- #
- #            """
- #            Return a header for a week as a table row.
- #            """
- #
- #            s = ''.join(self.formatweekday(i) for i in self.iterweekdays())
- #
- #            return '<div class="weekHeader">%s</div>' % s
- #
- #        def formatmonthname(self, theyear, themonth, withyear=True):
- #
- #            """
- #            Return a month name as a table row.
- #            """
- #
- #            if withyear:
- #                s = '{} {}'.format(month_name[themonth], theyear)
- #
- #            else:
- #                s = '%s' % month_name[themonth]
- #
- #            return '<div><div class="monthTitle"><h4>%s</h4></div></div>' % s
- #
- #        def formatmonth(self, theyear, themonth, withyear=True):
- #
- #            """
- #
- #            Return a formatted month as a table.
- #
- #            """
- #
- #            v = []
- #
- #            a = v.append
- #
- #            a('<div class="month">')
- #
- #            a('\n')
- #
- #            a(self.formatmonthname(theyear, themonth, withyear=withyear))
- #
- #            a('\n')
- #
- #            a(self.formatweekheader())
- #
- #            a('\n')
- #
- #            for week in self.monthdays2calendar(theyear, themonth):
- #                a(self.formatweek(week, theyear, themonth))
- #
- #                a('\n')
- #
- #            a('</div>')
- #
- #            a('\n')
- #
- #            return ''.join(v)
- #
- #        def get_week(self, date):
- #
- #            """Return the full week (Sunday first) of the week containing the given date.
- #
- #
- #
- #            'date' may be a datetime or date instance (the same type is returned).
- #
- #            """
- #
- #            one_day = datetime.timedelta(days=1)
- #
- #            day_idx = (date.weekday()) % 7  # turn sunday into 0, monday into 1, etc.
- #
- #            sunday = date - datetime.timedelta(days=day_idx)
- #
- #            date = sunday
- #
- #            for n in range(7):
- #                yield date
- #
- #                date += one_day
- #
- #        def week_html(self):
- #
- #            """Return HTML for the week"""
- #
- #            week_days = list(self.get_week(datetime.datetime.now().date()))
- #
- #            html = '<div class="weekContainer">' \
- # \
- #                   '<div class="weekTitle"><h4>Week of {} - {}</h4></div>'.format(week_days[0].strftime("%b %d"),
- #
- #                                                                                  week_days[-1].strftime("%b - %d"))
- #
- #        for day in week_days:
- #
- #            tasks = Tasks.objects.filter(date=day)
- #
- #            css = 'weekDay'
- #
- #            if day.strftime("%a").lower() == 'sun' or day.strftime("%a").lower() == 'sat' or self.is_holiday(day):
- #                css += ' holiday'
- #
- #            html += '<div class="{cls}"><div class="dateHolder">{date}</div>'.format(cls=css,
- #
- #                                                                                     date=day.strftime("%b - %d"))
- #
- #            if len(tasks) > 0:
- #
- #                for i in tasks:
- #                    html += '<div class="task"><a href="{}">{}</a></div>'.format(i.link, i.title)
- #
- #            html += '</div>'
- #
- #        html += '</div>'
- #
- #        return html
- #
- #    def formatweek(self, theweek):
- #        """
- #        Return a complete week as a table row.
- #        """
- #        s = ''.join(self.formatday(d, wd) for (d, wd) in theweek)
- #        return '<ul>%s</ul>' % s
- #
- #
+        #    def formatday(self, day, weekday, theyear, themonth):
+        #        """
+        #        Return a day as a table cell.
+        #        """
+        #        id = ''
+        #        appointments = []
+        #        if day !=0:
+        #            appointments = Appointments.objects.filter(date = datetime.date(theyear, themonth, day))
+        #
+        #            if self.today == datetime.date(theyear, themonth, day):
+        #                id = 'Today'
+        #            else:
+        #                id = 'dt_{}'.format(day)
+        #
+        #        if day == 0:
+        #            return '<div class="noday">&nbsp;</div>'  # day outside month
+        #        elif len(appointments) > 0:
+        #            html = '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}">' \
+        #                   '<div class="dayHolder">{day}</div>'.format(id=id, day=day, month=themonth, year=theyear)
+        #            for i in appointments:
+        #                html += '<div class="task item"><a href="{}"></a></div>'.format(i.title)
+        #            html += '</div>'
+        #            return html
+        #        else:
+        #            return '<div id="{id}" class="{day}" data-day="{day}" data-month="{month}" data-year="{year}"><div class="dayHolder">{day}</div></div>'.format(
+        #
+        #                id=id, day=day, month=themonth, year=theyear)
+        #
+        #
+        #        def formatweek(self, theweek, theyear, themonth):
+        #
+        #            """
+        #            Return a complete week as a table row.
+        #            """
+        #
+        #            s = ''.join(self.formatday(d, wd, theyear, themonth) for (d, wd) in theweek)
+        #            return '<div class="week">%s</div>' % s
+        #
+        #        def formatweekday(self, day):
+        #
+        #            """
+        #            Return a weekday name as a table header.
+        #            """
+        #
+        #            return '<div class="%s day">%s</div>' % (self.cssclasses[day], day_abbr[day])
+        #
+        #        def formatweekheader(self):
+        #
+        #            """
+        #            Return a header for a week as a table row.
+        #            """
+        #
+        #            s = ''.join(self.formatweekday(i) for i in self.iterweekdays())
+        #
+        #            return '<div class="weekHeader">%s</div>' % s
+        #
+        #        def formatmonthname(self, theyear, themonth, withyear=True):
+        #
+        #            """
+        #            Return a month name as a table row.
+        #            """
+        #
+        #            if withyear:
+        #                s = '{} {}'.format(month_name[themonth], theyear)
+        #
+        #            else:
+        #                s = '%s' % month_name[themonth]
+        #
+        #            return '<div><div class="monthTitle"><h4>%s</h4></div></div>' % s
+        #
+        #        def formatmonth(self, theyear, themonth, withyear=True):
+        #
+        #            """
+        #
+        #            Return a formatted month as a table.
+        #
+        #            """
+        #
+        #            v = []
+        #
+        #            a = v.append
+        #
+        #            a('<div class="month">')
+        #
+        #            a('\n')
+        #
+        #            a(self.formatmonthname(theyear, themonth, withyear=withyear))
+        #
+        #            a('\n')
+        #
+        #            a(self.formatweekheader())
+        #
+        #            a('\n')
+        #
+        #            for week in self.monthdays2calendar(theyear, themonth):
+        #                a(self.formatweek(week, theyear, themonth))
+        #
+        #                a('\n')
+        #
+        #            a('</div>')
+        #
+        #            a('\n')
+        #
+        #            return ''.join(v)
+        #
+        #        def get_week(self, date):
+        #
+        #            """Return the full week (Sunday first) of the week containing the given date.
+        #
+        #
+        #
+        #            'date' may be a datetime or date instance (the same type is returned).
+        #
+        #            """
+        #
+        #            one_day = datetime.timedelta(days=1)
+        #
+        #            day_idx = (date.weekday()) % 7  # turn sunday into 0, monday into 1, etc.
+        #
+        #            sunday = date - datetime.timedelta(days=day_idx)
+        #
+        #            date = sunday
+        #
+        #            for n in range(7):
+        #                yield date
+        #
+        #                date += one_day
+        #
+        #        def week_html(self):
+        #
+        #            """Return HTML for the week"""
+        #
+        #            week_days = list(self.get_week(datetime.datetime.now().date()))
+        #
+        #            html = '<div class="weekContainer">' \
+        # \
+        #                   '<div class="weekTitle"><h4>Week of {} - {}</h4></div>'.format(week_days[0].strftime("%b %d"),
+        #
+        #                                                                                  week_days[-1].strftime("%b - %d"))
+        #
+        #        for day in week_days:
+        #
+        #            tasks = Tasks.objects.filter(date=day)
+        #
+        #            css = 'weekDay'
+        #
+        #            if day.strftime("%a").lower() == 'sun' or day.strftime("%a").lower() == 'sat' or self.is_holiday(day):
+        #                css += ' holiday'
+        #
+        #            html += '<div class="{cls}"><div class="dateHolder">{date}</div>'.format(cls=css,
+        #
+        #                                                                                     date=day.strftime("%b - %d"))
+        #
+        #            if len(tasks) > 0:
+        #
+        #                for i in tasks:
+        #                    html += '<div class="task"><a href="{}">{}</a></div>'.format(i.link, i.title)
+        #
+        #            html += '</div>'
+        #
+        #        html += '</div>'
+        #
+        #        return html
+        #
+        #    def formatweek(self, theweek):
+        #        """
+        #        Return a complete week as a table row.
+        #        """
+        #        s = ''.join(self.formatday(d, wd) for (d, wd) in theweek)
+        #        return '<ul>%s</ul>' % s
+        #
+        #

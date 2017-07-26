@@ -24,7 +24,7 @@
         </div>
 
         <div id="childDialog" title="New Appointment">
-            <form class="registerliststyletwo" method="post" action="/accounts/appointment_submit/">
+            <form class="registerliststyletwo" method="post" action="{% url 'appt_sub' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <ul class="registerblock">Start Time:
                     <div><input id="starttime" type="datetime-local" name="start">
