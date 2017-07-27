@@ -1,14 +1,74 @@
 import datetime
 from calendar import *
 from django.shortcuts import render, HttpResponseRedirect
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Appointment
 
 
 # Create your views here.
+def check_if_in_timerange(check_time, range_start, range_end):
+    return range_start <= check_time <= range_end
+
+
+@csrf_exempt
+def create_time_choice_html(request):
+        if request.method == 'POST':
+            year = request.POST.get('year')
+            month = request.POST.get('month')
+            day = request.POST.get('day')
+            fmt = '%Y-%m-%d %H:%M:%S'
+            day_start = '{}-{}-{} 09:00:00'.format(year, int(month) - 1, day)
+            day_end = '{}-{}-{} 15:45:00'.format(year, int(month) - 1, day)
+            start = datetime.datetime.strptime(day_start, fmt)
+            end = datetime.datetime.strptime(day_end, fmt)
+            print(start)
+            print(end)
+            date = datetime.datetime(int(year), int(month), int(day))
+            appts = Appointment.objects.filter(start__day=date.day).order_by('start')
+            print(appts)
+            html = []
+            day = []
+
+            while start <= end:
+                day.append(start)
+                start += datetime.timedelta(minutes=15)
+
+            for time in day:
+                has_appt = False
+                for apt in appts:
+                    if check_if_in_timerange(time, apt.start, apt.end):
+                        has_appt = True
+                        break
+                if has_appt:
+                    html.append("<div id='rowthree-booked' class='rowthree booked' data-time='{}' title='Select Times'></div>".format(
+                        time.strftime('%H:%M')))
+                else:
+                    html.append("<div id='rowthree' class='rowthree' data-time='{}' title='Select Times'></div>".format(
+                        time.strftime('%H:%M')))
+            return JsonResponse({'html': html})
+
+
+class SchedulingCalendar(HTMLCalendar):
+    def __init__(self):
+        super(SchedulingCalendar, self).__init__()
+        self.today = datetime.date.today()
+
+    def get_week(self, date):
+        one_day = datetime.timedelta(days=1)
+        day_idx = (date.weekday()) % 7  # turn sunday into 0, monday into 1, etc.
+        sunday = date - datetime.timedelta(days=day_idx)
+        date = sunday
+
+        for n in range(7):
+            yield date
+            date += one_day
+
 
 def calendar_view(request):
     timeslots = range(29)
@@ -31,23 +91,26 @@ def calendar_view(request):
     now = datetime.datetime.now()
     calendar = HTMLCalendar().formatmonth(now.year, now.month)
 
-    def get_week(self, date):
-
-        """Return the full week (Sunday first) of the week containing the given date.
-        # 'date' may be a datetime or date instance (the same type is returned)."""
-
-        # one_day = datetime.timedelta(days=1)
-        # day_idx = (date.weekday()) % 7  # turn sunday into 0, monday into 1, etc.
-        # sunday = date - datetime.timedelta(days=day_idx)
-        # date = sunday
-        #
-        # for n in range(7):
-        #     yield date
-        #     date += one_day
-
     return render(request, 'pages/calendar_view.html',
                   {"year": datetime.datetime.today().year, "month": datetime.datetime.today(), "h": hours, "m": minutes,
                    "timeslots": timeslots, "times": times, "calendar": calendar})
+
+
+def month_view(request, month, year):
+    cal = calendar.formatmonth(int(year), int(month))
+    date = datetime.date(int(year), int(month), 1)
+    next_month = int(month) + 1 if int(month) + 1 <= 12 else 1
+    prev_month = int(month) - 1 if int(month) - 1 >= 1 else 12
+    month_nav = {
+        'next': {'year': int(year) + 1,
+                 'month': str(next_month) if len(str(next_month)) > 1 else '0' + str(next_month)},
+        'prev': {'year': int(year) - 1,
+                 'month': str(prev_month) if len(str(prev_month)) > 1 else '0' + str(prev_month)},
+        'this_year': datetime.date.today().year,
+        'this_month': datetime.date.today().month if len(str(datetime.date.today().month)) > 1 else '0' + str(
+            datetime.date.today().month),
+    }
+    return render(request, 'pages/month.html', {'cal': cal, 'dt': date, 'cal_nav': month_nav})
 
 
 def main(request):
@@ -81,11 +144,6 @@ def submitappt(request):
         #     pass
 
         return HttpResponseRedirect("/pages/calendar_view/")
-
-
-class SchedulingCalendar(HTMLCalendar):
-    def __init__(self):
-        self.today = datetime.date.today()
 
 
 

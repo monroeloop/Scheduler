@@ -41,9 +41,7 @@ $(document).ready(function () {
     //   });
 
     $("#columnthree").selectable({
-        selected: function (event, ui) {
-            // console.log($(ui.selected).data('time'));
-        }
+        filter:"div:not(.booked)"
     });
 
     function createChildDialog(starttime, endtime) {
@@ -60,8 +58,7 @@ $(document).ready(function () {
 
         starttime = start.getFullYear() + "-" + (startmonth) + "-" + (startday) + "T" + starthour + ":" + startminute;
         endtime = end.getFullYear() + "-" + (endmonth) + "-" + (endday) + "T" + endhour + ":" + endminute;
-        console.log(starttime)
-        console.log(endtime)
+
         $('#starttime').val(starttime);
         $('#endtime').val(endtime);
         $('#childDialog').dialog({
@@ -104,6 +101,7 @@ $(document).ready(function () {
                 },
                 "Select Times": function () {
                     var selectedlist = $(".ui-selected");
+                    if (selectedlist.length > 0) {
                     var starttime = $(selectedlist[0]).data("time").split(':');
                     var endtime = $(selectedlist[selectedlist.length - 1]).data("time").split(':')
                     if (day.toString().length < 2) {
@@ -111,26 +109,47 @@ $(document).ready(function () {
                     }
 
                     endtime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, endtime[0], endtime[1]);
-                    endtime.setMinutes(endtime.getMinutes() + 15)
+                    endtime.setMinutes(endtime.getMinutes() + 15);
 
                     starttime = new Date($('#yearHidden').text(), $('#monthHidden').text() - 1, day, starttime[0], starttime[1]);
 
                     createChildDialog(starttime, endtime);
                     $("#childDialog").dialog("open");
-                    // console.log($(".ui-selected"))
                 }
             }
-        });
-
-        var weekdays = "td[class=mon], td[class=tue], td[class=wed], td[class=thu], td[class=fri], td[class=sat], td[class=sun]";
-        $(weekdays).on("click", function () {
-            day = $(this).text()
-            $("#dialog").dialog("open");
-        });
+        }
     }
 
+    );
 
-    createChildDialog();
-    createParentDialog();
-
+var weekdays = "td[class=mon], td[class=tue], td[class=wed], td[class=thu], td[class=fri], td[class=sat], td[class=sun]";
+$(weekdays).on("click", function () {
+    day = ("0" + $(this).text()).slice(-2);
+    var date = new Date($('#yearHidden').text(), $('#monthHidden').text(), day);
+    var startmonth = ("0" + (date.getMonth() + 1)).slice(-2);
+    $.ajax({
+        url: "/pages/generate_day_html/",
+        type: "post",
+        data: {
+            year: date.getFullYear(),
+            month: startmonth,
+            day: day
+        },
+        success: function (data) {
+            var container = $('#columnthree');
+            container.empty();
+            $.each(data.html, function (i, o) {
+                container.append(o)
+            })
+        }
+    });
+    $("#dialog").dialog("open");
 });
+}
+
+
+createChildDialog();
+createParentDialog();
+
+})
+;
